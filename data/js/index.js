@@ -239,6 +239,21 @@ function niceBytes(x){
 }
 
 function createFilelistItem(i,type,filename,size) {
+    if (type == 'dir') {
+        var data =  "<div class=\"media\">\n" +
+                        "<div class=\"file-index\" >"+i+"</div>\n" +
+                        "<div class=\"media-body tm-bg-gray\">\n" +
+                            "<div class=\"tm-description-box\">\n" +
+                                "<h5 id=filename class=\"tm-text-blue\">"+filename+"</h5>\n" +
+                                "<p class=\"mb-0\">Type:"+type+"</p>\n" +
+                            "</div>\n" +
+                            "<div class=\"tm-dd-box\">\n" +
+                                "<input id="+filename+" type=\"button\" value=\"Enter\" class=\"btn tm-bg-blue tm-text-white tm-dd\" onclick=javascript:enterDir(id) />" +
+                            "</div>\n" +
+                        "</div>\n" +
+                    "</div>";
+        return data;
+    }
     var data =  "<div class=\"media\">\n" + 
                     "<div class=\"file-index\" >"+i+"</div>\n" +
                     "<div class=\"media-body tm-bg-gray\">\n" +
@@ -267,6 +282,11 @@ function onHttpList(response) {
 function updateList() {
     document.getElementById('filelistbox').innerHTML = "";
     httpGetList('/');
+}
+
+function enterDir(path) {
+    document.getElementById('filelistbox').innerHTML = "";
+    httpGetList(path);
 }
 
 function onClickUpdateList() {
